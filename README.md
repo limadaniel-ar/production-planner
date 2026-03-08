@@ -302,6 +302,83 @@ El diagrama representa las entidades principales del sistema y sus relaciones. R
 
 ```mermaid
 erDiagram
+    PRODUCTO {
+        string nombre
+        string codigo
+    }
+    RECETA {
+        string version
+        string descripcion
+    }
+    PASO_RECETA {
+        entero orden
+        entero duracion_estimada_minutos
+        booleano es_punto_bifurcacion
+    }
+    ETAPA_QA {
+        entero duracion_estimada_minutos
+        booleano bloquea_siguiente
+    }
+    LIMITE_TIEMPO {
+        entero limite_maximo_minutos
+    }
+    TIPO_EQUIPO {
+        string nombre
+        string cardinalidad
+        booleano es_cuello_de_botella
+    }
+    UNIDAD_EQUIPO {
+        string nombre
+        string horario_laboral
+    }
+    BLOQUEO_CALENDARIO {
+        timestamp fecha_inicio
+        timestamp fecha_fin
+        string motivo
+    }
+    LOTE {
+        string numero_lote
+        string estado_ciclo_vida
+        timestamp fecha_creacion
+    }
+    RAMA_LOTE {
+        string dosis
+        string tipo_presentacion
+        decimal cantidad_total
+    }
+    ETAPA_PROCESO {
+        string estado
+        timestamp inicio_planificado
+        timestamp fin_planificado
+        timestamp inicio_real
+        timestamp fin_real
+    }
+    EJECUCION_PARCIAL {
+        decimal cantidad_procesada
+        timestamp inicio
+        timestamp fin
+    }
+    CAMPANA {
+        entero reduccion_setup_minutos
+    }
+    ACTIVIDAD_PARALELA {
+        string tipo
+        timestamp fecha_limite
+        string estado
+    }
+    HISTORIAL_EJECUCION {
+        string tipo_evento
+        timestamp timestamp
+        string actor
+        string motivo
+        string payload
+    }
+    DIVERGENCIA {
+        entero limite_minutos
+        entero tiempo_real_minutos
+        timestamp timestamp_deteccion
+    }
+
     PRODUCTO ||--|{ RECETA : "tiene"
     RECETA ||--|{ PASO_RECETA : "define"
     PASO_RECETA ||--o| ETAPA_QA : "puede incluir"
